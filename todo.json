@@ -5,21 +5,32 @@
       "title": "Finish Python console project",
       "completed": false,
       "due_date": "2025-09-20",
-      "tags": ["coding", "school"]
+      "tags": ["coding", "school"],
+      "user": "elias"
     },
     {
       "id": 2,
       "title": "Buy groceries",
       "completed": true,
       "due_date": "2025-09-19",
-      "tags": ["personal", "shopping"]
+      "tags": ["personal", "shopping"],
+      "user": "elias"
     },
     {
       "id": 3,
       "title": "Workout session",
       "completed": false,
       "due_date": "2025-09-21",
-      "tags": ["health", "fitness"]
+      "tags": ["health", "fitness"],
+      "user": "elias"
+    },
+    {
+      "id": 4,
+      "title": "Workout session",
+      "completed": false,
+      "due_date": "2025-09-21",
+      "tags": ["health", "fitness"],
+      "user": "patrick"
     }
   ]
 }
