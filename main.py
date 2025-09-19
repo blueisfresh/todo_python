@@ -6,8 +6,11 @@ from simple_term_menu import TerminalMenu
 username = None
 
 
+# TODO: Global todo dictionary filtered based on username
+
+
 def main(username):
-    menu_options = ["Show todos", "Add Todo", "Edit Todo", "Quit"]
+    menu_options = ["Show todos", "Add Todo", "Edit Todo", "Delete Todo", "Quit"]
     terminal_menu = TerminalMenu(menu_options)
     menu_entry_index = terminal_menu.show()
 
@@ -19,6 +22,8 @@ def main(username):
         create_todo()
     elif choice == "Edit Todo":
         edit_todo()
+    elif choice == "Delete Todo":
+        delete_todo()
     elif choice == "Quit":
         return False  # tell caller we want to quit (while loop)
 
@@ -77,6 +82,40 @@ def read_todos(arg_username):
         else:
             # Transform python object back into json & Show the json
             print(json.dumps(output_dict))
+
+
+def delete_todo():
+    # Load existing Todos
+    with open("todo.json", "r") as json_file:
+        data = json.load(json_file)
+        todos = data["todos"]  # or just data if you're using raw list JSON
+
+    print("\n--- Delete Todo ---")
+    id = prompt_required("Please enter the ID of the todo to delete: ", allow_spaces=False)
+
+    # Find the todo by ID
+    matches = [todo for todo in todos if str(todo["id"]) == id]
+    if not matches:
+        print("❌ No todo found with that ID.")
+        return
+
+    todo = matches[0]
+
+    # TODO: Use edit confirmation
+    # Optional confirm step before deleting
+    print(f"⚠️  Are you sure you want to delete Todo #{id}: '{todo['title']}'?")
+    confirm = input("Type 'yes' to confirm: ").lower()
+
+    if confirm == "yes":
+        todos.remove(todo)
+
+        # Save back
+        with open("todo.json", "w") as json_file:
+            json.dump(data, json_file, indent=4)
+
+        print("\n✅ Todo deleted successfully!\n")
+    else:
+        print("\n🚫 Delete cancelled.\n")
 
 
 def edit_todo():
