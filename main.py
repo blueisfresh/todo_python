@@ -21,9 +21,9 @@ def main(username):
     elif choice == "Add Todo":
         create_todo()
     elif choice == "Edit Todo":
-        edit_todo()
+        edit_todo(username)
     elif choice == "Delete Todo":
-        delete_todo()
+        delete_todo(username)
     elif choice == "Quit":
         return False  # quit the outer while loop
 
@@ -39,7 +39,13 @@ def signup():
 def load_all_todos():
     """Load the full todos structure from file."""
     with open("todo.json", "r") as todo_json:
-        return json.load(todo_json)["todos"]
+        todos = json.load(todo_json)["todos"]
+
+    if not todos:
+        print("No todos found.")
+        return
+    else:
+        return todos
 
 
 def save_all_todos(todos):
@@ -51,7 +57,13 @@ def save_all_todos(todos):
 def load_user_todos(username):
     """Return only todos belonging to a specific user."""
     todos = load_all_todos()
-    return [todo for todo in todos if todo["user"] == username]
+    user_todos = [todo for todo in todos if todo["user"] == username]
+
+    if not user_todos:
+        print("No todos found.")
+        return
+    else:
+        return user_todos
 
 
 def print_todo(data):
@@ -84,10 +96,13 @@ def display_todos(username):
         print_todo(todos)
 
 
-def delete_todo():
+def delete_todo(username):
     all_todos = load_all_todos()
+    user_todos = load_user_todos(username)
 
     print("\n--- Delete Todo ---")
+    print_todo(user_todos)
+
     id = prompt_required("Please enter the ID of the todo to delete: ", allow_spaces=False)
 
     # Find the todo by ID
@@ -119,6 +134,10 @@ def edit_todo():
     # TODO: Automatically display the todo list when editing
 
     all_todos = load_all_todos()
+
+    user_todos = load_user_todos(username)
+
+    print_todo(user_todos)
 
     # Ask user for details
     print("\n--- Edit Todo ---")
