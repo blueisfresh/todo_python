@@ -5,6 +5,14 @@ from simple_term_menu import TerminalMenu
 
 username = None
 
+# Allow enter to keep previous values everywhere
+# Due Date is optional
+# Overdue Highlighting
+# due_date = todo.get("due_date")
+# if due_date and datetime.date.fromisoformat(due_date) < datetime.date.today():
+#    status += " ⚠️ Overdue"
+# Use a Todo App Class
+# always use load_user_todos (edit and delete) to prevent removing other people todos
 
 def main(username):
     menu_options = ["Show todos", "Add Todo", "Edit Todo", "Delete Todo", "Quit"]
