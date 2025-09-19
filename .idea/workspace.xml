@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Deleting existing Todos">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Cleaned up main and signup methods">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758276984519</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Cleaned up main and signup methods">
+      <option name="closed" value="true" />
+      <created>1758277923061</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1758277923061</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -177,6 +186,7 @@
     <MESSAGE value="Adding new Todos" />
     <MESSAGE value="Editing existing Todos" />
     <MESSAGE value="Deleting existing Todos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deleting existing Todos" />
+    <MESSAGE value="Cleaned up main and signup methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up main and signup methods" />
   </component>
 </project>

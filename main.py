@@ -6,9 +6,6 @@ from simple_term_menu import TerminalMenu
 username = None
 
 
-# TODO: Global todo dictionary filtered based on username
-
-
 def main(username):
     menu_options = ["Show todos", "Add Todo", "Edit Todo", "Delete Todo", "Quit"]
     terminal_menu = TerminalMenu(menu_options)
@@ -20,7 +17,7 @@ def main(username):
 
     # Depending on Choice - calling the right method
     if choice == "Show todos":
-        read_todos(username)
+        display_todos(username)
     elif choice == "Add Todo":
         create_todo()
     elif choice == "Edit Todo":
@@ -37,6 +34,24 @@ def main(username):
 def signup():
     print("Hello, welcome to your todo App")
     return prompt_required("Choose a username (no spaces): ", allow_spaces=False)
+
+
+def load_all_todos():
+    """Load the full todos structure from file."""
+    with open("todo.json", "r") as todo_json:
+        return json.load(todo_json)["todos"]
+
+
+def save_all_todos(todos):
+    """Save the full todos list back to file."""
+    with open("todo.json", "w") as todo_json:
+        json.dump({"todos": todos}, todo_json, indent=4)
+
+
+def load_user_todos(username):
+    """Return only todos belonging to a specific user."""
+    todos = load_all_todos()
+    return [todo for todo in todos if todo["user"] == username]
 
 
 def print_todo(data):
@@ -60,55 +75,41 @@ def print_todo(data):
         )
 
 
-def read_todos(arg_username):
-    # Reading Json Data from a file
-    with open("todo.json", "r") as json_file:
-        # Transform json input to python objects
-        input_dict = json.load(json_file)
+def display_todos(username):
+    # Get User specific todos
+    todos = load_user_todos(username)
 
-        # Grab the todos list first
-        todos = input_dict["todos"]
-
-        # Filter the todos for the given username
-        output_dict = [todo for todo in todos if str(todo["user"]) == arg_username]
-
-        if output_dict:
-            # print data from json
-            print_todo(output_dict)
-        else:
-            # Transform python object back into json & Show the json
-            print(json.dumps(output_dict))
+    # Print Todos if they were fetched correctly
+    if todos:
+        print_todo(todos)
 
 
 def delete_todo():
-    # Load existing Todos
-    with open("todo.json", "r") as json_file:
-        data = json.load(json_file)
-        todos = data["todos"]  # or just data if you're using raw list JSON
+    all_todos = load_all_todos()
 
     print("\n--- Delete Todo ---")
     id = prompt_required("Please enter the ID of the todo to delete: ", allow_spaces=False)
 
     # Find the todo by ID
-    matches = [todo for todo in todos if str(todo["id"]) == id]
-    if not matches:
+    match = [todo for todo in all_todos if str(todo["id"]) == id]
+    if not match:
         print("❌ No todo found with that ID.")
         return
 
-    todo = matches[0]
+    todo = match[0]
 
     # TODO: Use edit confirmation
-    # Optional confirm step before deleting
+    # Confirm step before deleting
+
     print(f"⚠️  Are you sure you want to delete Todo #{id}: '{todo['title']}'?")
-    confirm = input("Type 'yes' to confirm: ").lower()
+    options_completed = ["Yes", "No"]
+    terminal_menu = TerminalMenu(options_completed, title="Confirm delete?")
+    answer_index = terminal_menu.show()
+    confirm = (options_completed[answer_index] == "Yes")
 
-    if confirm == "yes":
-        todos.remove(todo)
-
-        # Save back
-        with open("todo.json", "w") as json_file:
-            json.dump(data, json_file, indent=4)
-
+    if confirm:  # ✅ now correct
+        all_todos.remove(todo)
+        save_all_todos(all_todos)
         print("\n✅ Todo deleted successfully!\n")
     else:
         print("\n🚫 Delete cancelled.\n")
@@ -117,22 +118,19 @@ def delete_todo():
 def edit_todo():
     # TODO: Automatically display the todo list when editing
 
-    # Load existing Todos
-    with open("todo.json", "r") as json_file:
-        data = json.load(json_file)
-        todos = data["todos"]
+    all_todos = load_all_todos()
 
     # Ask user for details
     print("\n--- Edit Todo ---")
     id = prompt_required("Please enter your ID (no spaces): ", allow_spaces=False)
 
     # Find the todo by ID
-    matches = [todo for todo in todos if str(todo["id"]) == id]
-    if not matches:
+    match = [todo for todo in all_todos if str(todo["id"]) == id]
+    if not match:
         print("❌ No todo found with that ID.")
         return
 
-    todo = matches[0]
+    todo = match[0]
 
     # Title
     new_title = input(f"Title (leave blank to keep '{todo['title']}'): ").strip()
@@ -157,28 +155,24 @@ def edit_todo():
     answer_index = terminal_menu.show()
     todo["completed"] = (options_completed[answer_index] == "Yes")
 
-    # Save back
-    with open("todo.json", "w") as json_file:
-        json.dump(data, json_file, indent=4)
+    save_all_todos(all_todos)
 
     print("\n✅ Todo updated successfully!\n")
 
 
 def create_todo():
-    # Load existing Todos
-    with open("todo.json", "r") as json_file:
-        data = json.load(json_file)
-        todos = data["todos"]
+    # Load all Todos
+    all_todos = load_all_todos()
 
     # Generate next ID
-    next_id = max([todo["id"] for todo in todos], default=0) + 1
+    next_id = max([todo["id"] for todo in all_todos], default=0) + 1
 
     # Ask user for details
     print("\n--- Create a New Todo ---")
     title = prompt_required("Title: ", allow_spaces=True)
     due_date = prompt_due_date()
 
-    # Build todo dict
+    # Build new todo
     new_todo = {
         "id": next_id,
         "title": title,
@@ -187,12 +181,10 @@ def create_todo():
         "user": username,
     }
 
-    # Append new todo
-    todos.append(new_todo)
-
-    # Save back
-    with open("todo.json", "w") as json_file:
-        json.dump(data, json_file, indent=4)
+    # Append new todo to all_todos dictionary
+    all_todos.append(new_todo)
+    # Save it using custom utils method
+    save_all_todos(all_todos)
 
     print("\n✅ Todo created successfully!\n")
 
