@@ -1,15 +1,32 @@
 import json
 from pynput.keyboard import Key, Listener
+from simple_term_menu import TerminalMenu
 
 quitProgram = False
 key_strokes_should_be_logged = False
 username = None
 
+
 def main():
     global username
+    global quitProgram
+
+    options = ["Show todos", "Add Todo", "Quit"]
+    terminal_menu = TerminalMenu(options)
+    menu_entry_index = terminal_menu.show()
 
     if username:
-        read_todos(username)
+        choice = options[menu_entry_index]
+
+        if choice == "Show todos":
+            read_todos(username)
+        elif choice == "Add Todo":
+            print("TODO: implement add_todo()")
+        elif choice == "Quit":
+            quitProgram = True
+
+    print(f"\nYou have selected {options[menu_entry_index]}!\n")
+
 
 def signup():
     global username
@@ -17,22 +34,6 @@ def signup():
     print("Hello, welcome to your todo App")
     username = input("What is your username? ")
 
-
-def on_press(key):
-    global quitProgram
-    if key_strokes_should_be_logged:
-        print('{0} pressed'.format(key))
-
-        # TODO: if command esc then quit Program
-
-        # quit program on ESC
-        if key == Key.esc:
-            quitProgram = True
-            return False  # stop listener
-
-def on_release(key):
-    if key_strokes_should_be_logged:
-        print('{0} release'.format(key))
 
 def print_todo(data):
     print("\nThese are all of your todos:\n")
@@ -54,6 +55,7 @@ def print_todo(data):
             f"{todo['id']:<{col_id}} {todo['title']:<{col_title}} {status:<{col_status}} {todo['due_date']:<{col_due}}"
         )
 
+
 def read_todos(arg_username):
     # Reading Json Data from a file
     with open("todo.json", "r") as json_file:
@@ -69,33 +71,15 @@ def read_todos(arg_username):
         if output_dict:
             # print data from json
             print_todo(output_dict)
-        else :
+        else:
             # Transform python object back into json & Show the json
             print(json.dumps(output_dict))
 
 
 # prevent python main script to be run when its being imported as a module
 if __name__ == "__main__":
-    # Start the listener in the background
-    listener = Listener(on_press=on_press, on_release=on_release)
-    listener.start()
-
+    # Asking for Username
     signup()
 
     while not quitProgram:
-        print("\nMenu:")
-        print("1. Show todos")
-        print("2. Add todo")
-        print("3. Quit")
-        choice = input("Select an option: ")
-
-        if choice == "1":
-            main()  # show todos
-        elif choice == "2":
-            print("TODO: implement add_todo()")
-        elif choice == "3":
-            quitProgram = True
-        else:
-            print("Invalid option")
-
-    listener.join()
+        main()
