@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Switched to A scrollable Menu in the console">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Username is being passed and not being used as global">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.json" beforeDir="false" afterPath="$PROJECT_DIR$/todo.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758272371067</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Username is being passed and not being used as global">
+      <option name="closed" value="true" />
+      <created>1758273257507</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1758273257507</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -142,6 +151,7 @@
     <MESSAGE value="User Specific Todos shown, based on username" />
     <MESSAGE value="Program Loop Added &amp; updated Todos Table" />
     <MESSAGE value="Switched to A scrollable Menu in the console" />
-    <option name="LAST_COMMIT_MESSAGE" value="Switched to A scrollable Menu in the console" />
+    <MESSAGE value="Username is being passed and not being used as global" />
+    <option name="LAST_COMMIT_MESSAGE" value="Username is being passed and not being used as global" />
   </component>
 </project>

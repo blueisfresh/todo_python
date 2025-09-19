@@ -1,7 +1,10 @@
 import json
+import datetime
+
 from simple_term_menu import TerminalMenu
 
 username = None
+
 
 def main(username):
     options = ["Show todos", "Add Todo", "Quit"]
@@ -13,7 +16,7 @@ def main(username):
     if choice == "Show todos":
         read_todos(username)
     elif choice == "Add Todo":
-        print("TODO: implement add_todo()")
+        create_todo()
     elif choice == "Quit":
         return False  # tell caller we want to quit (while loop)
 
@@ -72,6 +75,76 @@ def read_todos(arg_username):
         else:
             # Transform python object back into json & Show the json
             print(json.dumps(output_dict))
+
+
+def create_todo():
+    # Load existing Todos
+    with open("todo.json", "r") as json_file:
+        data = json.load(json_file)
+        todos = data["todos"]
+
+    # Generate next ID
+    next_id = max([todo["id"] for todo in todos], default=0) + 1
+
+    # Ask user for details
+    print("\n--- Create a New Todo ---")
+    title = prompt_required("Title: ", allow_spaces=True)
+    due_date = prompt_due_date()
+
+    # Build todo dict
+    new_todo = {
+        "id": next_id,
+        "title": title,
+        "completed": False,
+        "due_date": due_date,
+        "user": username,
+    }
+
+    # Append new todo
+    todos.append(new_todo)
+
+    # Save back
+    with open("todo.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
+    print("\n✅ Todo created successfully!\n")
+
+
+def validate(date_text):
+    try:
+        datetime.date.fromisoformat(date_text)
+    except ValueError:
+        raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+
+
+def prompt_required(prompt_text, allow_spaces=True):
+    """Prompt the user until they provide a valid non-empty string.
+    If allow_spaces=False, disallow spaces in the input."""
+    while True:
+        value = input(prompt_text).strip()
+        if not value:
+            print("❌ Value cannot be empty. Try again.")
+            continue
+        if not allow_spaces and " " in value:
+            print("❌ Value cannot contain spaces. Try again.")
+            continue
+        return value
+
+
+def prompt_due_date():
+    """Prompt the user until a valid date in YYYY-MM-DD format is entered."""
+    while True:
+        date_str = input("Due date (YYYY-MM-DD): ").strip()
+        if not date_str:
+            print("❌ Due Date cannot be empty. Try again.")
+            continue
+        try:
+            # Use ISO format parsing
+            datetime.date.fromisoformat(date_str)
+            return date_str
+        except ValueError:
+            print("❌ Incorrect format. Expected YYYY-MM-DD.")
+
 
 # prevent python main script to be run when its being imported as a module
 if __name__ == "__main__":

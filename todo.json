@@ -1,36 +1,62 @@
 {
-  "todos": [
-    {
-      "id": 1,
-      "title": "Finish Python console project",
-      "completed": false,
-      "due_date": "2025-09-20",
-      "tags": ["coding", "school"],
-      "user": "elias"
-    },
-    {
-      "id": 2,
-      "title": "Buy groceries",
-      "completed": true,
-      "due_date": "2025-09-19",
-      "tags": ["personal", "shopping"],
-      "user": "elias"
-    },
-    {
-      "id": 3,
-      "title": "Workout session",
-      "completed": false,
-      "due_date": "2025-09-21",
-      "tags": ["health", "fitness"],
-      "user": "elias"
-    },
-    {
-      "id": 4,
-      "title": "Workout session",
-      "completed": false,
-      "due_date": "2025-09-21",
-      "tags": ["health", "fitness"],
-      "user": "patrick"
-    }
-  ]
+    "todos": [
+        {
+            "id": 1,
+            "title": "Finish Python console project",
+            "completed": false,
+            "due_date": "2025-09-20",
+            "tags": [
+                "coding",
+                "school"
+            ],
+            "user": "elias"
+        },
+        {
+            "id": 2,
+            "title": "Buy groceries",
+            "completed": true,
+            "due_date": "2025-09-19",
+            "tags": [
+                "personal",
+                "shopping"
+            ],
+            "user": "elias"
+        },
+        {
+            "id": 3,
+            "title": "Workout session",
+            "completed": false,
+            "due_date": "2025-09-21",
+            "tags": [
+                "health",
+                "fitness"
+            ],
+            "user": "elias"
+        },
+        {
+            "id": 4,
+            "title": "Workout session",
+            "completed": false,
+            "due_date": "2025-09-21",
+            "tags": [
+                "health",
+                "fitness"
+            ],
+            "user": "patrick"
+        },
+        {
+            "id": 5,
+            "title": "cleaning the apartment",
+            "completed": false,
+            "due_date": "2025-09-20",
+            "user": "patrick"
+        },
+        {
+            "id": 6,
+            "title": "safsad",
+            "completed": false,
+            "due_date": "2025-09-21",
+            "user": "patrick"
+        }
+    ]
 }
