@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Editing existing Todos">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Deleting existing Todos">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758276740881</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Deleting existing Todos">
+      <option name="closed" value="true" />
+      <created>1758276984519</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1758276984519</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -168,6 +176,7 @@
     <MESSAGE value="Username is being passed and not being used as global" />
     <MESSAGE value="Adding new Todos" />
     <MESSAGE value="Editing existing Todos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Editing existing Todos" />
+    <MESSAGE value="Deleting existing Todos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleting existing Todos" />
   </component>
 </project>

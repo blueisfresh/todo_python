@@ -12,10 +12,13 @@ username = None
 def main(username):
     menu_options = ["Show todos", "Add Todo", "Edit Todo", "Delete Todo", "Quit"]
     terminal_menu = TerminalMenu(menu_options)
+    # index of what you currently have selected
     menu_entry_index = terminal_menu.show()
 
+    # using the index getting the menu_options
     choice = menu_options[menu_entry_index]
 
+    # Depending on Choice - calling the right method
     if choice == "Show todos":
         read_todos(username)
     elif choice == "Add Todo":
@@ -25,7 +28,7 @@ def main(username):
     elif choice == "Delete Todo":
         delete_todo()
     elif choice == "Quit":
-        return False  # tell caller we want to quit (while loop)
+        return False  # quit the outer while loop
 
     print(f"\nYou have selected {choice}!\n")
     return True  # keep the program running
@@ -33,14 +36,7 @@ def main(username):
 
 def signup():
     print("Hello, welcome to your todo App")
-    while True:
-        username = input("Choose a username (no spaces): ").lower().strip()
-        if " " in username:
-            print("❌ Usernames cannot contain spaces. Try again.")
-        elif username == "":
-            print("❌ Username cannot be empty. Try again.")
-        else:
-            return username  # return instead of modify global
+    return prompt_required("Choose a username (no spaces): ", allow_spaces=False)
 
 
 def print_todo(data):
