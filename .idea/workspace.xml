@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Program Loop Added &amp; updated Todos Table">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Switched to A scrollable Menu in the console">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -36,7 +36,8 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager">
@@ -123,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758269530223</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Switched to A scrollable Menu in the console">
+      <option name="closed" value="true" />
+      <created>1758272371067</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1758272371067</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -132,6 +141,7 @@
     <MESSAGE value="Printing Todos after asking for credentials" />
     <MESSAGE value="User Specific Todos shown, based on username" />
     <MESSAGE value="Program Loop Added &amp; updated Todos Table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Program Loop Added &amp; updated Todos Table" />
+    <MESSAGE value="Switched to A scrollable Menu in the console" />
+    <option name="LAST_COMMIT_MESSAGE" value="Switched to A scrollable Menu in the console" />
   </component>
 </project>

@@ -1,38 +1,36 @@
 import json
-from pynput.keyboard import Key, Listener
 from simple_term_menu import TerminalMenu
 
-quitProgram = False
-key_strokes_should_be_logged = False
 username = None
 
-
-def main():
-    global username
-    global quitProgram
-
+def main(username):
     options = ["Show todos", "Add Todo", "Quit"]
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
 
-    if username:
-        choice = options[menu_entry_index]
+    choice = options[menu_entry_index]
 
-        if choice == "Show todos":
-            read_todos(username)
-        elif choice == "Add Todo":
-            print("TODO: implement add_todo()")
-        elif choice == "Quit":
-            quitProgram = True
+    if choice == "Show todos":
+        read_todos(username)
+    elif choice == "Add Todo":
+        print("TODO: implement add_todo()")
+    elif choice == "Quit":
+        return False  # tell caller we want to quit (while loop)
 
-    print(f"\nYou have selected {options[menu_entry_index]}!\n")
+    print(f"\nYou have selected {choice}!\n")
+    return True  # keep the program running
 
 
 def signup():
-    global username
-
     print("Hello, welcome to your todo App")
-    username = input("What is your username? ")
+    while True:
+        username = input("Choose a username (no spaces): ").lower().strip()
+        if " " in username:
+            print("❌ Usernames cannot contain spaces. Try again.")
+        elif username == "":
+            print("❌ Username cannot be empty. Try again.")
+        else:
+            return username  # return instead of modify global
 
 
 def print_todo(data):
@@ -75,11 +73,11 @@ def read_todos(arg_username):
             # Transform python object back into json & Show the json
             print(json.dumps(output_dict))
 
-
 # prevent python main script to be run when its being imported as a module
 if __name__ == "__main__":
     # Asking for Username
-    signup()
+    username = signup()
 
-    while not quitProgram:
-        main()
+    running = True;
+    while running:
+        running = main(username)
