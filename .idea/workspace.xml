@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Username is being passed and not being used as global">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Adding new Todos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todo.json" beforeDir="false" afterPath="$PROJECT_DIR$/todo.json" afterDir="false" />
@@ -141,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758273257507</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Adding new Todos">
+      <option name="closed" value="true" />
+      <created>1758274640192</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1758274640192</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -152,6 +160,7 @@
     <MESSAGE value="Program Loop Added &amp; updated Todos Table" />
     <MESSAGE value="Switched to A scrollable Menu in the console" />
     <MESSAGE value="Username is being passed and not being used as global" />
-    <option name="LAST_COMMIT_MESSAGE" value="Username is being passed and not being used as global" />
+    <MESSAGE value="Adding new Todos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding new Todos" />
   </component>
 </project>

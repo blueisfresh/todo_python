@@ -7,16 +7,18 @@ username = None
 
 
 def main(username):
-    options = ["Show todos", "Add Todo", "Quit"]
-    terminal_menu = TerminalMenu(options)
+    menu_options = ["Show todos", "Add Todo", "Edit Todo", "Quit"]
+    terminal_menu = TerminalMenu(menu_options)
     menu_entry_index = terminal_menu.show()
 
-    choice = options[menu_entry_index]
+    choice = menu_options[menu_entry_index]
 
     if choice == "Show todos":
         read_todos(username)
     elif choice == "Add Todo":
         create_todo()
+    elif choice == "Edit Todo":
+        edit_todo()
     elif choice == "Quit":
         return False  # tell caller we want to quit (while loop)
 
@@ -75,6 +77,56 @@ def read_todos(arg_username):
         else:
             # Transform python object back into json & Show the json
             print(json.dumps(output_dict))
+
+
+def edit_todo():
+    # TODO: Automatically display the todo list when editing
+
+    # Load existing Todos
+    with open("todo.json", "r") as json_file:
+        data = json.load(json_file)
+        todos = data["todos"]
+
+    # Ask user for details
+    print("\n--- Edit Todo ---")
+    id = prompt_required("Please enter your ID (no spaces): ", allow_spaces=False)
+
+    # Find the todo by ID
+    matches = [todo for todo in todos if str(todo["id"]) == id]
+    if not matches:
+        print("❌ No todo found with that ID.")
+        return
+
+    todo = matches[0]
+
+    # Title
+    new_title = input(f"Title (leave blank to keep '{todo['title']}'): ").strip()
+    if new_title:
+        todo["title"] = new_title
+
+    # Due date
+    while True:
+        new_due = input(f"Due date (YYYY-MM-DD, leave blank to keep {todo['due_date']}): ").strip()
+        if not new_due:
+            break
+        try:
+            datetime.date.fromisoformat(new_due)
+            todo["due_date"] = new_due
+            break
+        except ValueError:
+            print("❌ Incorrect format. Expected YYYY-MM-DD.")
+
+    # Completed toggle
+    options_completed = ["Yes", "No"]
+    terminal_menu = TerminalMenu(options_completed, title="Mark as completed?")
+    answer_index = terminal_menu.show()
+    todo["completed"] = (options_completed[answer_index] == "Yes")
+
+    # Save back
+    with open("todo.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
+    print("\n✅ Todo updated successfully!\n")
 
 
 def create_todo():
