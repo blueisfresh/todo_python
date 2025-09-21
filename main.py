@@ -1,12 +1,13 @@
 import json
 import datetime
+from datetime import datetime
 
 from simple_term_menu import TerminalMenu
 
 username = None
 
 
-# Overdue Highlighting
+#
 # due_date = todo.get("due_date")
 # if due_date and datetime.date.fromisoformat(due_date) < datetime.date.today():
 #    status += " ⚠️ Overdue"
@@ -75,6 +76,8 @@ def load_user_todos(username):
 def print_todo(data):
     print("\nThese are all of your todos:\n")
 
+    current_day = datetime.today().strftime('%Y-%m-%d')
+
     # define column width explicitly
     col_id = 5
     col_title = 30
@@ -88,7 +91,16 @@ def print_todo(data):
     # rows
     for todo in data:
         status = "✓" if todo["completed"] else "✗"
-        due = todo["due_date"] if todo["due_date"] else "-"
+        if todo["due_date"]:
+            due_date = todo["due_date"]
+            # Highlight overdue
+            if due_date < current_day and not todo["completed"]:
+                due = f"{todo['due_date']} ⚠️"
+            else:
+                due = todo["due_date"]
+        else:
+            due = "-"
+
         print(
             f"{todo['id']:<{col_id}} {todo['title']:<{col_title}} "
             f"{status:<{col_status}} {due:<{col_due}}"
@@ -98,7 +110,6 @@ def print_todo(data):
 def display_todos(username):
     # Get User specific todos
     todos = load_user_todos(username)
-
     # Print Todos if they were fetched correctly
     if todos:
         print_todo(todos)
@@ -107,24 +118,18 @@ def display_todos(username):
 def delete_todo(username):
     all_todos = load_all_todos()
     user_todos = load_user_todos(username)
-
     print("\n--- Delete Todo ---")
     print_todo(user_todos)
-
     id = prompt_required("Please enter the ID of the todo to delete: ", allow_spaces=False)
-
     # Find the todo by ID
     match = [todo for todo in all_todos if todo["user"] == username and str(todo["id"]) == id]
     if not match:
         print("❌ No todo found with that ID.")
         return
-
     todo = match[0]
-
     # Confirm step before deleting
     print(f"⚠️  Are you sure you want to delete Todo #{id}: '{todo['title']}'?")
     confirm_menu = TerminalMenu(["Yes", "No"], title="Confirm delete?")
-
     # "if confirm menu is yes"
     if confirm_menu.show() == 0:
         all_todos.remove(todo);
@@ -137,26 +142,20 @@ def delete_todo(username):
 def edit_todo(username):
     all_todos = load_all_todos()
     user_todos = load_user_todos(username)
-
     print_todo(user_todos)
-
     # Ask user for details
     print("\n--- Edit Todo ---")
     id = prompt_required("Please enter your ID (no spaces): ", allow_spaces=False)
-
     # Find the todo by ID
     match = [todo for todo in all_todos if todo["user"] == username and str(todo["id"]) == id]
     if not match:
         print("❌ No todo found with that ID.")
         return
-
     todo = match[0]
-
     # Title
     new_title = input(f"Title (leave blank to keep '{todo['title']}'): ").strip()
     if new_title:
         todo["title"] = new_title
-
     # Due date
     while True:
         new_due = input(f"Due date (YYYY-MM-DD, leave blank to keep {todo['due_date']}): ").strip()
@@ -168,15 +167,12 @@ def edit_todo(username):
             break
         except ValueError:
             print("❌ Incorrect format. Expected YYYY-MM-DD.")
-
     # Completed toggle
     complete_menu = TerminalMenu(["Yes", "No"], title="Mark as completed?")
     todo["completed"] = (complete_menu.show() == 0)
-
     # Confirm step before deleting
     print(f"⚠️  Are you sure you want to save Todo #{id}: '{todo['title']}'?")
     confirm_menu = TerminalMenu(["Yes", "No"], title="Confirm Change?")
-
     # "if confirm menu is yes"
     if confirm_menu.show() == 0:
         save_all_todos(all_todos)
@@ -188,15 +184,12 @@ def edit_todo(username):
 def create_todo():
     # Load all Todos
     all_todos = load_all_todos()
-
     # Generate next ID
     next_id = max([todo["id"] for todo in all_todos], default=0) + 1
-
     # Ask user for details
     print("\n--- Create a New Todo ---")
     title = prompt_required("Title: ", allow_spaces=True)
     due_date = prompt_due_date()
-
     # Build new todo
     new_todo = {
         "id": next_id,
@@ -205,12 +198,10 @@ def create_todo():
         "due_date": due_date,
         "user": username,
     }
-
     # Append new todo to all_todos dictionary
     all_todos.append(new_todo)
     # Save it using custom utils method
     save_all_todos(all_todos)
-
     print("\n✅ Todo created successfully!\n")
 
 
@@ -253,7 +244,6 @@ def prompt_due_date():
 if __name__ == "__main__":
     # Asking for Username
     username = signup()
-
     running = True;
     while running:
         running = main(username)
