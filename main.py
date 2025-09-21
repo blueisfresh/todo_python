@@ -5,14 +5,13 @@ from simple_term_menu import TerminalMenu
 
 username = None
 
-# Allow enter to keep previous values everywhere
+
 # Due Date is optional
 # Overdue Highlighting
 # due_date = todo.get("due_date")
 # if due_date and datetime.date.fromisoformat(due_date) < datetime.date.today():
 #    status += " ⚠️ Overdue"
 # Use a Todo App Class
-# always use load_user_todos (edit and delete) to prevent removing other people todos
 
 def main(username):
     menu_options = ["Show todos", "Add Todo", "Edit Todo", "Delete Todo", "Quit"]
@@ -114,35 +113,28 @@ def delete_todo(username):
     id = prompt_required("Please enter the ID of the todo to delete: ", allow_spaces=False)
 
     # Find the todo by ID
-    match = [todo for todo in all_todos if str(todo["id"]) == id]
+    match = [todo for todo in all_todos if todo["user"] == username and str(todo["id"]) == id]
     if not match:
         print("❌ No todo found with that ID.")
         return
 
     todo = match[0]
 
-    # TODO: Use edit confirmation
     # Confirm step before deleting
-
     print(f"⚠️  Are you sure you want to delete Todo #{id}: '{todo['title']}'?")
-    options_completed = ["Yes", "No"]
-    terminal_menu = TerminalMenu(options_completed, title="Confirm delete?")
-    answer_index = terminal_menu.show()
-    confirm = (options_completed[answer_index] == "Yes")
+    confirm_menu = TerminalMenu(["Yes", "No"], title="Confirm delete?")
 
-    if confirm:  # ✅ now correct
-        all_todos.remove(todo)
+    # "if confirm menu is yes"
+    if confirm_menu.show() == 0:
+        all_todos.remove(todo);
         save_all_todos(all_todos)
         print("\n✅ Todo deleted successfully!\n")
     else:
         print("\n🚫 Delete cancelled.\n")
 
 
-def edit_todo():
-    # TODO: Automatically display the todo list when editing
-
+def edit_todo(username):
     all_todos = load_all_todos()
-
     user_todos = load_user_todos(username)
 
     print_todo(user_todos)
@@ -152,7 +144,7 @@ def edit_todo():
     id = prompt_required("Please enter your ID (no spaces): ", allow_spaces=False)
 
     # Find the todo by ID
-    match = [todo for todo in all_todos if str(todo["id"]) == id]
+    match = [todo for todo in all_todos if todo["user"] == username and str(todo["id"]) == id]
     if not match:
         print("❌ No todo found with that ID.")
         return
@@ -177,14 +169,19 @@ def edit_todo():
             print("❌ Incorrect format. Expected YYYY-MM-DD.")
 
     # Completed toggle
-    options_completed = ["Yes", "No"]
-    terminal_menu = TerminalMenu(options_completed, title="Mark as completed?")
-    answer_index = terminal_menu.show()
-    todo["completed"] = (options_completed[answer_index] == "Yes")
+    complete_menu = TerminalMenu(["Yes", "No"], title="Mark as completed?")
+    todo["completed"] = (complete_menu.show() == 0)
 
-    save_all_todos(all_todos)
+    # Confirm step before deleting
+    print(f"⚠️  Are you sure you want to save Todo #{id}: '{todo['title']}'?")
+    confirm_menu = TerminalMenu(["Yes", "No"], title="Confirm Change?")
 
-    print("\n✅ Todo updated successfully!\n")
+    # "if confirm menu is yes"
+    if confirm_menu.show() == 0:
+        save_all_todos(all_todos)
+        print("\n✅ Todo updated successfully!\n")
+    else:
+        print("\n🚫 Todo update cancelled.\n")
 
 
 def create_todo():
