@@ -6,7 +6,6 @@ from simple_term_menu import TerminalMenu
 username = None
 
 
-# Due Date is optional
 # Overdue Highlighting
 # due_date = todo.get("due_date")
 # if due_date and datetime.date.fromisoformat(due_date) < datetime.date.today():
@@ -89,8 +88,10 @@ def print_todo(data):
     # rows
     for todo in data:
         status = "✓" if todo["completed"] else "✗"
+        due = todo["due_date"] if todo["due_date"] else "-"
         print(
-            f"{todo['id']:<{col_id}} {todo['title']:<{col_title}} {status:<{col_status}} {todo['due_date']:<{col_due}}"
+            f"{todo['id']:<{col_id}} {todo['title']:<{col_title}} "
+            f"{status:<{col_status}} {due:<{col_due}}"
         )
 
 
@@ -237,10 +238,9 @@ def prompt_required(prompt_text, allow_spaces=True):
 def prompt_due_date():
     """Prompt the user until a valid date in YYYY-MM-DD format is entered."""
     while True:
-        date_str = input("Due date (YYYY-MM-DD): ").strip()
-        if not date_str:
-            print("❌ Due Date cannot be empty. Try again.")
-            continue
+        date_str = input("Due date (YYYY-MM-DD, leave blank for none): ").strip()
+        if not date_str:  # optional → None
+            return None
         try:
             # Use ISO format parsing
             datetime.date.fromisoformat(date_str)
