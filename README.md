@@ -1,7 +1,3 @@
-Got it 🚀! Here’s a clean and beginner-friendly **README.md** file for your TodoApp project.  
-
----
-
 # ✅ TodoApp (Terminal-Based)
 
 A simple **command-line Todo application** built in Python.  
