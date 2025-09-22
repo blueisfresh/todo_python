@@ -3,7 +3,6 @@ import datetime
 from datetime import datetime
 from simple_term_menu import TerminalMenu
 
-# TODO: Add Readme File
 
 class TodoApp:
     # Constructor
