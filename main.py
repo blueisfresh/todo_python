@@ -3,6 +3,7 @@ import datetime
 from datetime import datetime
 from simple_term_menu import TerminalMenu
 
+# TODO: Add Readme File
 
 class TodoApp:
     # Constructor
@@ -12,6 +13,7 @@ class TodoApp:
 
     # Core File operations
     def load_all_todos(self):
+        """Return Todos Dictionary from self.filename."""
         with open(self.filename, "r") as todo_json:
             todos = json.load(todo_json)["todos"]
 
@@ -22,10 +24,12 @@ class TodoApp:
             return todos
 
     def save_all_todos(self, todos):
+        """Save Todos Dictionary to self.filename."""
         with open(self.filename, "w") as todo_json:
             json.dump({"todos": todos}, todo_json, indent=4)
 
     def load_user_todos(self):
+        """Return Todos Dictionary from self.filename with the correct username."""
         todos = self.load_all_todos()
         user_todos = [todo for todo in todos if todo["user"] == self.username]
 
@@ -36,8 +40,8 @@ class TodoApp:
             return user_todos
 
     # UI Helpers
-    def print_todo(self, todos):
-
+    def print_todo(todos):
+        """Print passed in todos Dictionary."""
         print("\n" + "=" * 60)
         print("📋 YOUR TODOS")
         print("=" * 60)
@@ -75,6 +79,7 @@ class TodoApp:
 
     @staticmethod
     def prompt_required(prompt_text, allow_spaces=True):
+        """Generalized Method to take care of empty user input."""
         while True:
             value = input(prompt_text).strip()
             if not value:
@@ -87,6 +92,7 @@ class TodoApp:
 
     @staticmethod
     def prompt_due_date():
+        """Generalized Method to take care of Due Date user input & validation."""
         while True:
             date_str = input("Due date (YYYY-MM-DD, leave blank for none): ").strip()
             if not date_str:  # optional → None
@@ -100,7 +106,7 @@ class TodoApp:
 
     # Menu Actions
     def display_todos(self):
-
+        """Method to display Todos Dictionary."""
         print("\n" + "=" * 60)
         print("📋 DISPLAYING YOUR TODOS")
         print("=" * 60)
@@ -115,7 +121,7 @@ class TodoApp:
             print("💡 Try creating one with 'Add Todo'.\n")
 
     def create_todo(self):
-
+        """Method to create Todos Dictionary."""
         print("\n" + "=" * 60)
         print("➕ CREATE NEW TODO")
         print("=" * 60)
@@ -151,7 +157,8 @@ class TodoApp:
         print("=" * 60 + "\n")
 
     def edit_todo(self):
-
+        """Method to edit Todos Dictionary."""
+        print("\n" + "=" * 60)
         print("\n" + "=" * 60)
         print("✏️  EDIT TODO")
         print("=" * 60)
@@ -213,7 +220,7 @@ class TodoApp:
             print("=" * 60 + "\n")
 
     def delete_todo(self):
-
+        """Method to delete Todos Dictionary."""
         print("\n" + "=" * 60)
         print("🗑️  DELETE TODO")
         print("=" * 60)
@@ -253,6 +260,7 @@ class TodoApp:
             print("=" * 60 + "\n")
 
     def run(self):
+        """Main function that prints menu and redirects you to your selected action."""
         print("\n🚀 Todo App is running...\n")
 
         running = True
@@ -293,6 +301,7 @@ class TodoApp:
 
 # App Entry Point
 def signup():
+    """Method that asks for user information."""
     print("\n" + "=" * 60)
     print("🎉 WELCOME TO YOUR TODO APP")
     print("=" * 60)

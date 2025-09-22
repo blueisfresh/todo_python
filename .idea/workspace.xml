@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="Overdue Highlighting">
+    <list default="true" id="e201c195-fbb1-4c60-be59-242d2639fcaf" name="Changes" comment="TodoApp Class Refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -232,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758462459788</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="TodoApp Class Refactor">
+      <option name="closed" value="true" />
+      <created>1758464752069</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1758464752069</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -253,6 +261,7 @@
     <MESSAGE value="Updated Delete &amp; Edit Todo with Confirm prompt at edit_todo" />
     <MESSAGE value="Due Date is optional" />
     <MESSAGE value="Overdue Highlighting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Overdue Highlighting" />
+    <MESSAGE value="TodoApp Class Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="TodoApp Class Refactor" />
   </component>
 </project>
